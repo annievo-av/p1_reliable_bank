@@ -1,0 +1,61 @@
+body, html {
+	background-image: url("../images/background.jpg");
+	height: 100%;
+	width: auto;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: rgb(78, 78, 78);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+.container {
+	margin-top: 87px;
+	margin-bottom: auto;
+}
+
+.form-group {
+	width: 300px;
+	float: right;
+}
+
+.form-group .btn {
+	width: 200px;
+	margin-left: 50px;
+}
+
+.form-group b {
+	margin-left: 14px;
+}
+
+/* Employee UI for more specific */
+
+.hello {
+	color: white;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+	text-decoration: none !important;
+}
+
+.btn-sm {
+	background-color: transparent;
+}
+
+.btn.focus, .btn:focus {
+	box-shadow: none;
+}
+
+.btn-emp {
+	margin: 5px;
+	background-color: white;
+}
+
+@media screen and (max-width: 600px) {
+	.container {
+		margin-top: 30px;
+		margin-bottom: 0;
+	}
+}
