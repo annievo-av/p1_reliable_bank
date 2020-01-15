@@ -40,10 +40,10 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm">
+        <div class="row" style="background-color: darkgrey">
+            <div class="col-sm" style="max-width: 250px">
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">My bank</button>
+                    <button onclick="getMyBank()" type="submit" class="btn btn-emp">My bank</button>
                 </div>
                 <div>
                     <button onclick="" type="submit" class="btn btn-emp">Deposit</button>
@@ -55,15 +55,15 @@
                     <button onclick="" type="submit" class="btn btn-emp">Transfer</button>
                 </div>
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">Pending money</button>
+                    <button onclick="getPendingMoney()" type="submit" class="btn btn-emp">Pending money</button>
                 </div>
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">Apply for a new card</button>
+                    <button onclick="applyNewCard()" type="submit" class="btn btn-emp">Apply for a new card</button>
                 </div>
             </div>
 
             <div class="col-sm">
-                <div id="custRespond">Return Here</div>
+                <div id="custRespond"><h1>${usernameLogin}, </h1></div>
             </div>
         </div>
     </div>
@@ -80,6 +80,7 @@
         crossorigin="anonymous"></script>
     <!--Personal JS-->
     <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/cust.js"></script>
 </body>
 
 <footer>

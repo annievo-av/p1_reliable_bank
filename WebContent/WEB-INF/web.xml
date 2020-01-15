@@ -16,26 +16,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>EmployeeServlet</display-name>
-    <servlet-name>EmployeeServlet</servlet-name>
-    <servlet-class>com.bank.controller.EmployeeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmployeeServlet</servlet-name>
-    <url-pattern>/employee</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>CustomerServlet</display-name>
-    <servlet-name>CustomerServlet</servlet-name>
-    <servlet-class>com.bank.controller.CustomerServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CustomerServlet</servlet-name>
-    <url-pattern>/customer</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>Logoff</display-name>
     <servlet-name>Logoff</servlet-name>
     <servlet-class>com.bank.controller.Logoff</servlet-class>
@@ -123,5 +103,75 @@
   <servlet-mapping>
     <servlet-name>EmpCardDeny</servlet-name>
     <url-pattern>/carddeny</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustMyBank</display-name>
+    <servlet-name>CustMyBank</servlet-name>
+    <servlet-class>com.bank.controller.CustMyBank</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustMyBank</servlet-name>
+    <url-pattern>/mybank</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustPendingMoney</display-name>
+    <servlet-name>CustPendingMoney</servlet-name>
+    <servlet-class>com.bank.controller.CustPendingMoney</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustPendingMoney</servlet-name>
+    <url-pattern>/pendingmoney</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustApplyCard</display-name>
+    <servlet-name>CustApplyCard</servlet-name>
+    <servlet-class>com.bank.controller.CustApplyCard</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustApplyCard</servlet-name>
+    <url-pattern>/applycard</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustDeposit</display-name>
+    <servlet-name>CustDeposit</servlet-name>
+    <servlet-class>com.bank.controller.CustDeposit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustDeposit</servlet-name>
+    <url-pattern>/deposit</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustWithdraw</display-name>
+    <servlet-name>CustWithdraw</servlet-name>
+    <servlet-class>com.bank.controller.CustWithdraw</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustWithdraw</servlet-name>
+    <url-pattern>/withdraw</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustTransfer</display-name>
+    <servlet-name>CustTransfer</servlet-name>
+    <servlet-class>com.bank.controller.CustTransfer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustTransfer</servlet-name>
+    <url-pattern>/transfer</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SignUpController</display-name>
+    <servlet-name>SignUpController</servlet-name>
+    <servlet-class>com.bank.controller.SignUpController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpController</servlet-name>
+    <url-pattern>/signup</url-pattern>
   </servlet-mapping>
 </web-app>

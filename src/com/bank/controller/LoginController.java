@@ -34,6 +34,7 @@ public class LoginController extends HttpServlet {
 		try {
 			a = userBo.validLogin(usernameLogin, passwordLogin);
 			session.setAttribute("usernameLogin", a.getUsername());
+			session.setAttribute("account", a);
 			
 			if(a.getUsername() == null) {
 				response.sendRedirect("index.jsp");

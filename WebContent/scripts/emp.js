@@ -1,5 +1,5 @@
 function refreshPage(){
-    window.location.reload();
+	response.sendRedirect("employee.jsp");
 } 
 
 function getAccounts() {
