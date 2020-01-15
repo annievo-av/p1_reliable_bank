@@ -33,7 +33,7 @@
         </div>
     </nav>
 
-    <form action="" method="POST">
+    <form action="signup" method="POST">
         <div class="container">
             <div class="row justify-content-end mr-5">
                 <div class="form-group">
@@ -69,14 +69,14 @@
             <div class="row justify-content-end mr-5">
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="checkbox">
+                        <input class="form-check-input" type="checkbox" id="checkbox" required>
                         <label class="form-check-label"> Agreed to the Terms of Use </label>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-end mr-5">
                 <div class="form-group">
-                    <button onclick="" type="submit" class="btn btn-primary" id="signupbtn" disabled>Sign Up</button>
+                    <button type="submit" class="btn btn-primary" id="signupbtn">Sign Up</button>
                 </div>
             </div>
         </div>
