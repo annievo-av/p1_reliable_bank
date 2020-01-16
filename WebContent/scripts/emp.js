@@ -1,7 +1,3 @@
-function refreshPage(){
-	response.sendRedirect("employee.jsp");
-} 
-
 function getAccounts() {
 	fetch('http://localhost:2222/p1_reliable_bank/accounts')
     .then((res) => res.json())

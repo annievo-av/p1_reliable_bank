@@ -58,7 +58,7 @@ public class CustApplyCard extends HttpServlet {
 
 		try {
 			custBo.applyNewCard(card);
-			rd = request.getRequestDispatcher("employee.jsp");
+			rd = request.getRequestDispatcher("customer.jsp");
 			rd.include(request, response);
 			out.println("<script type=\"text/javascript\">");
 			out.println("alert('Account Created Successfully!');");

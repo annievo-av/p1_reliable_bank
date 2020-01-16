@@ -174,4 +174,24 @@
     <servlet-name>SignUpController</servlet-name>
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustDoApprove</display-name>
+    <servlet-name>CustDoApprove</servlet-name>
+    <servlet-class>com.bank.controller.CustDoApprove</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustDoApprove</servlet-name>
+    <url-pattern>/doapprove</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CustDoDeny</display-name>
+    <servlet-name>CustDoDeny</servlet-name>
+    <servlet-class>com.bank.controller.CustDoDeny</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustDoDeny</servlet-name>
+    <url-pattern>/dodeny</url-pattern>
+  </servlet-mapping>
 </web-app>

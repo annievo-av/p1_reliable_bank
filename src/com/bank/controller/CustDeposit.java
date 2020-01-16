@@ -1,30 +1,43 @@
 package com.bank.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class CustDeposit
- */
+import com.bank.bo.CustBo;
+import com.bank.bo.CustBoImpl;
+import com.bank.exception.BusinessException;
+import com.bank.to.Account;
+import com.bank.to.Card;
+import com.google.gson.Gson;
+
 public class CustDeposit extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CustDeposit() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	private static final long serialVersionUID = 1L;
+
+	public CustDeposit() {
+		super();
 	}
 
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		CustBo custBo = new CustBoImpl();
+		HttpSession session = request.getSession(false);
+		Account a = (Account) session.getAttribute("account");
+		Gson gson = new Gson();
+
+		Card c = gson.fromJson(request.getReader(), Card.class);
+
+		try {
+			custBo.deposit(a, c);
+			out.print(gson.toJson(c));
+		} catch (BusinessException e) {
+			out.print(e.getMessage());
+		}
+	}
 }

@@ -19,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><b>Reliable Bank</b></a>
+        <a class="navbar-brand" href="http://localhost:2222/p1_reliable_bank/index.jsp"><b>Reliable Bank</b></a>
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">

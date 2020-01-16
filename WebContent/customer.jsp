@@ -24,7 +24,7 @@
 		}
 	%>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><b>Reliable Bank</b></a>
+        <a class="navbar-brand" href="http://localhost:2222/p1_reliable_bank/customer.jsp"><b>Reliable Bank</b></a>
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
@@ -43,16 +43,16 @@
         <div class="row" style="background-color: darkgrey">
             <div class="col-sm" style="max-width: 250px">
                 <div>
-                    <button onclick="getMyBank()" type="submit" class="btn btn-emp">My bank</button>
+                    <button onclick="return getMyBank()" type="submit" class="btn btn-emp">My bank</button>
                 </div>
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">Deposit</button>
+                    <button onclick="deposit()" type="submit" class="btn btn-emp">Deposit</button>
                 </div>
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">Withdraw</button>
+                    <button onclick="withdraw()" type="submit" class="btn btn-emp">Withdraw</button>
                 </div>
                 <div>
-                    <button onclick="" type="submit" class="btn btn-emp">Transfer</button>
+                    <button onclick="transfer()" type="submit" class="btn btn-emp">Transfer</button>
                 </div>
                 <div>
                     <button onclick="getPendingMoney()" type="submit" class="btn btn-emp">Pending money</button>
@@ -66,6 +66,7 @@
                 <div id="custRespond"><h1>${usernameLogin}, </h1></div>
             </div>
         </div>
+        <div id="message"></div>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

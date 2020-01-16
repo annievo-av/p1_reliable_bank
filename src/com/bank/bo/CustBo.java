@@ -11,15 +11,19 @@ public interface CustBo {
 	
 	public List<Card> cardInfoList(Account a) throws BusinessException;
 
-	public void updateBalance(Card c) throws BusinessException;
+	public void deposit(Account a, Card c) throws BusinessException;
+	
+	public void withdraw(Account a, Card c) throws BusinessException;
 	
 	public void insertLogProc(Transaction t) throws BusinessException;
 
-	public void transferProc(Transaction t) throws BusinessException;
+	public void transferProc(Account a, Transaction t) throws BusinessException;
 
 	public void applyNewCard(Card c) throws BusinessException;
 
 	public List<Transaction> pendingMoneyList(Account a) throws BusinessException;
+	
+	public void approveMoney(Account a, Card c) throws BusinessException;
 	
 	public void removePendingAmount(Transaction t) throws BusinessException;
 	

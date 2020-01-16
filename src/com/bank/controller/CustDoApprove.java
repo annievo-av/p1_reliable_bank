@@ -16,13 +16,13 @@ import com.bank.to.Account;
 import com.bank.to.Card;
 import com.google.gson.Gson;
 
-public class CustWithdraw extends HttpServlet {
+public class CustDoApprove extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public CustWithdraw() {
-		super();
-	}
+    public CustDoApprove() {
+        super();
+    }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
@@ -34,10 +34,11 @@ public class CustWithdraw extends HttpServlet {
 		Card c = gson.fromJson(request.getReader(), Card.class);
 
 		try {
-			custBo.withdraw(a, c);
+			custBo.approveMoney(a, c);
 			out.print(gson.toJson(c));
 		} catch (BusinessException e) {
 			out.print(e.getMessage());
 		}
 	}
+
 }
