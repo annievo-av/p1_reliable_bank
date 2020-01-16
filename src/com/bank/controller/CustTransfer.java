@@ -37,7 +37,7 @@ public class CustTransfer extends HttpServlet {
 			custBo.transferProc(a, t);
 			out.print(gson.toJson(t));
 		} catch (BusinessException e) {
-			out.print(e.getMessage());
+			response.sendRedirect("customer.jsp");
 		}
 	}
 }

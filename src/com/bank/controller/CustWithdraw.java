@@ -37,7 +37,7 @@ public class CustWithdraw extends HttpServlet {
 			custBo.withdraw(a, c);
 			out.print(gson.toJson(c));
 		} catch (BusinessException e) {
-			out.print(e.getMessage());
+			response.sendRedirect("customer.jsp");
 		}
 	}
 }

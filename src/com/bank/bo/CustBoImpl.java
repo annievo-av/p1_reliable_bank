@@ -39,23 +39,27 @@ public class CustBoImpl implements CustBo {
 
 	@Override
 	public void deposit(Account a, Card c) throws BusinessException {
+		Validator v = new Validator();
 		List<Card> cList = cardInfoList(a);
+		
+		double depositAmount = v.validAmount(Double.toString(c.getBalance()));
+		int validCard = v.validCardNumber(Integer.toString(c.getCardNumber()));
 		
 		double curr = 0;
 		for (Card card : cList) {
-			if(card.getCardNumber() == c.getCardNumber()) {
+			if(card.getCardNumber() == validCard) {
 				curr = card.getBalance();
 			}
 		}
 		
-		c.setBalance(curr + c.getBalance());
+		c.setBalance(curr + depositAmount);
 		getCustDao().updateBalance(c);
 		
 		Transaction t = new Transaction();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		t.setPerson_1(a.getUsername());
-		t.setAction("Deposit $" + c.getBalance());
+		t.setAction("Deposit $" + depositAmount);
 		t.setPerson_2(Integer.toString(c.getCardNumber()));
 		t.setTime(formatter.format(date));
 		insertLogProc(t);
@@ -63,24 +67,33 @@ public class CustBoImpl implements CustBo {
 	
 	@Override
 	public void withdraw(Account a, Card c) throws BusinessException {
+		Validator v = new Validator();
 		List<Card> cList = cardInfoList(a);
+		
+		double withdrawAmount = v.validAmount(Double.toString(c.getBalance()));
+		int validCard = v.validCardNumber(Integer.toString(c.getCardNumber()));
 		
 		double curr = 0;
 		for (Card card : cList) {
-			if(card.getCardNumber() == c.getCardNumber()) {
+			if(card.getCardNumber() == validCard) {
 				curr = card.getBalance();
 			}
 		}
 		
-		c.setBalance(curr - c.getBalance());
+		double newBalance = curr - withdrawAmount;
+		if(newBalance < 0) {
+			throw new BusinessException();
+		}
+		
+		c.setBalance(newBalance);
 		getCustDao().updateBalance(c);
 		
 		Transaction t = new Transaction();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		t.setPerson_1(a.getUsername());
-		t.setAction("Withdraw $" + c.getBalance());
-		t.setPerson_2(Integer.toString(c.getCardNumber()));
+		t.setAction("Withdraw $" + withdrawAmount);
+		t.setPerson_2(Integer.toString(validCard));
 		t.setTime(formatter.format(date));
 		insertLogProc(t);
 	}
@@ -92,12 +105,14 @@ public class CustBoImpl implements CustBo {
 
 	@Override
 	public void transferProc(Account a, Transaction t) throws BusinessException {
+		Validator v = new Validator();
 		List<Card> myCardList = cardInfoList(a);
 		List<Account> systemCardList = getEmpDao().accountInfoList();
 		
-		int mySelectedCardNumber = Integer.parseInt(t.getSender());
-		double transferAmount = t.getAmount();
-		int cardNumberTransferTo = Integer.parseInt(t.getReceiver());
+		int mySelectedCardNumber = v.validCardNumber(t.getSender());
+		double transferAmount = v.validAmount(Double.toString(t.getAmount()));
+		int cardNumberTransferTo = v.validCardNumber(t.getReceiver());
+		
 		Card myCard = new Card();
 		Card receiverCard = new Card();
 		double myCurrentBalance, myNewBalance;
@@ -109,6 +124,9 @@ public class CustBoImpl implements CustBo {
 		}
 		myCurrentBalance = myCard.getBalance();
 		myNewBalance = myCurrentBalance - transferAmount;
+		if(myNewBalance < 0) {
+			throw new BusinessException();
+		}
 		myCard.setBalance(myNewBalance);
 		getCustDao().updateBalance(myCard);
 		

@@ -114,7 +114,6 @@ function doDeny() {
     	document.getElementById('message').innerHTML = output;
     })
 	return false;
-	return false;
 }
 //*******************************************************************************************//
 //*******************************************************************************************//
@@ -199,11 +198,13 @@ function doDeposit() {
         },
         body: JSON.stringify(data)
     })
-    .then ((res) => res.json()
-//    	if(res.redirected) {
-//    		window.location.href = res.url;
-//    	}
-    )
+    .then ((res) => {
+    	if(res.redirected) {
+    		window.location.href = res.url;
+    		alert('Invalid input. Please try again!');
+    	}
+    	return res.json();
+    })
     .then((c) =>{
     	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
     	document.getElementById('message').innerHTML = output;
@@ -266,11 +267,13 @@ function doWithdraw() {
         },
         body: JSON.stringify(data)
     })
-    .then ((res) => res.json()
-//    	if(res.redirected) {
-//    		window.location.href = res.url;
-//    	}
-    )
+    .then ((res) => {
+    	if(res.redirected) {
+    		window.location.href = res.url;
+    		alert('Invalid input. Please try again!');
+    	}
+    	return res.json();
+    })
     .then((c) =>{
     	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
     	document.getElementById('message').innerHTML = output;
@@ -337,11 +340,13 @@ function doTransfer() {
         },
         body: JSON.stringify(data)
     })
-    .then ((res) => res.json()
-//    	if(res.redirected) {
-//    		window.location.href = res.url;
-//    	}
-    )
+    .then ((res) => {
+    	if(res.redirected) {
+    		window.location.href = res.url;
+    		alert('Invalid input. Please try again!');
+    	}
+    	return res.json();
+    })
     .then((c) =>{
     	let output = `<center><h5><span style='color: blue;'>Transferred Successfully</span></h4></center>`;
     	document.getElementById('message').innerHTML = output;

@@ -32,12 +32,12 @@ public class CustDeposit extends HttpServlet {
 		Gson gson = new Gson();
 
 		Card c = gson.fromJson(request.getReader(), Card.class);
-
+		
 		try {
 			custBo.deposit(a, c);
 			out.print(gson.toJson(c));
 		} catch (BusinessException e) {
-			out.print(e.getMessage());
+			response.sendRedirect("customer.jsp");
 		}
 	}
 }

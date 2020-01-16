@@ -23,7 +23,7 @@
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavId">
-            <form action="login" class="form-inline my-2 my-lg-0">
+            <form action="login" method="POST" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" name="usernameLogin" type="text" placeholder="username" size="12"
                     required>
                 <input class="form-control mr-sm-2" name="passwordLogin" type="password" placeholder="password" size="12"

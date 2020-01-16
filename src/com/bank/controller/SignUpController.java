@@ -39,7 +39,7 @@ public class SignUpController extends HttpServlet {
 			rd = request.getRequestDispatcher("index.jsp");
 			rd.include(request, response);
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Account Created Successfully!');");
+			out.println("alert('Account Created Successfully. Please wait for approval!');");
 			out.println("</script>");
 		} catch (BusinessException e) {
 			out.print(e.getMessage());

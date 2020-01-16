@@ -3,6 +3,7 @@ package com.bank.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class LoginController extends HttpServlet {
 		UserBo userBo = new UserBoImpl();
 		PrintWriter out=response.getWriter();
 		HttpSession session = request.getSession();
+		RequestDispatcher rd = null;
 		
 		String usernameLogin = request.getParameter("usernameLogin");
 		String passwordLogin = request.getParameter("passwordLogin");
@@ -37,7 +39,11 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("account", a);
 			
 			if(a.getUsername() == null) {
-				response.sendRedirect("index.jsp");
+				rd = request.getRequestDispatcher("index.jsp");
+				rd.include(request, response);
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('Invalid input.');");
+				out.println("</script>");
 			}
 			else {
 				if(userBo.isEmployee(a)) {
