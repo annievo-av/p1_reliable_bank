@@ -19,12 +19,12 @@ public interface CustBo {
 
 	public void transferProc(Account a, Transaction t) throws BusinessException;
 
-	public void applyNewCard(Card c) throws BusinessException;
+	public void applyNewCard(Account a, Card c) throws BusinessException;
 
 	public List<Transaction> pendingMoneyList(Account a) throws BusinessException;
 	
 	public void approveMoney(Account a, Card c) throws BusinessException;
 	
-	public void removePendingAmount(Transaction t) throws BusinessException;
+	public void removePendingAmount(Card c, Transaction t) throws BusinessException;
 	
 }

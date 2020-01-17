@@ -33,10 +33,10 @@ public class CustDoDeny extends HttpServlet {
 		t.setAmount(c.getBalance());
 		
 		try {
-			custBo.removePendingAmount(t);
+			custBo.removePendingAmount(c, t);
 			out.print(gson.toJson(c));
 		} catch (BusinessException e) {
-			out.print(e.getMessage());
+			response.sendRedirect("customer.jsp");
 		}
 	}
 

@@ -151,7 +151,14 @@ public class CustBoImpl implements CustBo {
 	}
 
 	@Override
-	public void applyNewCard(Card c) throws BusinessException {
+	public void applyNewCard(Account a, Card c) throws BusinessException {
+		Validator v = new Validator();
+		int validCardNumber = v.validCardNumber(Integer.toString(c.getPd_cardNumber()));
+		double validAmount = v.validAmount(Double.toString(c.getPd_balance()));
+		
+		c.setPd_cardNumber(validCardNumber);
+		c.setPd_balance(validAmount);
+		c.setApplicator(a.getUsername());
 		getCustDao().applyNewCard(c);
 	}
 
@@ -163,12 +170,15 @@ public class CustBoImpl implements CustBo {
 	
 	@Override
 	public void approveMoney(Account a, Card c) throws BusinessException {
+		Validator v = new Validator();
 		List<Card> cList = cardInfoList(a);
 		
+		double acceptedAmount = v.validAmount(Double.toString(c.getBalance()));
+		int validCard = v.validCardNumber(Integer.toString(c.getCardNumber()));
+		
 		double curr = 0;
-		double acceptedAmount = c.getBalance();
 		for (Card card : cList) {
-			if(card.getCardNumber() == c.getCardNumber()) {
+			if(card.getCardNumber() == validCard) {
 				curr = card.getBalance();
 			}
 		}
@@ -178,19 +188,23 @@ public class CustBoImpl implements CustBo {
 		
 		Transaction t = new Transaction();
 		t.setAmount(acceptedAmount);
-		removePendingAmount(t);
+		removePendingAmount(c, t);
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		Date date = new Date(System.currentTimeMillis());
 		t.setPerson_1(a.getUsername());
-		t.setAction("Accept $" + c.getBalance());
+		t.setAction("Accept $" + acceptedAmount);
 		t.setPerson_2(Integer.toString(c.getCardNumber()));
 		t.setTime(formatter.format(date));
 		insertLogProc(t);
 	}
 
 	@Override
-	public void removePendingAmount(Transaction t) throws BusinessException {
+	public void removePendingAmount(Card c, Transaction t) throws BusinessException {
+		Validator v = new Validator();
+		double amount = v.validAmount(Double.toString(c.getBalance()));
+		v.validCardNumber(Integer.toString(c.getCardNumber()));
+		t.setAmount(amount);
 		getCustDao().removePendingAmount(t);
 	}
 

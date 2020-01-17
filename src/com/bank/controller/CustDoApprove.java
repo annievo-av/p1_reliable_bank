@@ -37,7 +37,7 @@ public class CustDoApprove extends HttpServlet {
 			custBo.approveMoney(a, c);
 			out.print(gson.toJson(c));
 		} catch (BusinessException e) {
-			out.print(e.getMessage());
+			response.sendRedirect("customer.jsp");
 		}
 	}
 

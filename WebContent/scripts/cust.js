@@ -26,9 +26,9 @@ function getMyBank() {
     })
     return false;
 }
-//*******************************************************************************************//
-//*******************************************************************************************//
-//*******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
 function getPendingMoney() {
 	fetch('http://localhost:2222/p1_reliable_bank/pendingmoney')
     .then((res) => res.json())
@@ -69,82 +69,134 @@ function getPendingMoney() {
 }
 
 function doApprove() {
-	let data = {cardNumber: document.getElementById('cardNumber').value, 
-			balance : document.getElementById('amount').value};
-	fetch('http://localhost:2222/p1_reliable_bank/doapprove', {
-        method: 'POST',
-        redirect: 'follow',
-        headers: {
-//            'Accept': 'application/json, text/plain, */*',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then ((res) => res.json()
-//    	if(res.redirected) {
-//    		window.location.href = res.url;
-//    	}
-    )
-    .then((c) =>{
-    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
-    	document.getElementById('message').innerHTML = output;
-    })
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		let data = {cardNumber: document.getElementById('cardNumber').value, 
+				balance : document.getElementById('amount').value};
+		fetch('http://localhost:2222/p1_reliable_bank/doapprove', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) =>{
+	    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+	
 	return false;
 }
 
 function doDeny() {
-	let data = {cardNumber: document.getElementById('cardNumber').value, 
-			balance : document.getElementById('amount').value};
-	fetch('http://localhost:2222/p1_reliable_bank/dodeny', {
-        method: 'POST',
-        redirect: 'follow',
-        headers: {
-//            'Accept': 'application/json, text/plain, */*',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then ((res) => res.json()
-//    	if(res.redirected) {
-//    		window.location.href = res.url;
-//    	}
-    )
-    .then((c) =>{
-    	let output = `<center><h5><span style='color: blue;'>The Pending Amount is Successfully Removed</span></h4></center>`;
-    	document.getElementById('message').innerHTML = output;
-    })
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		let data = {cardNumber: document.getElementById('cardNumber').value, 
+				balance : document.getElementById('amount').value};
+		fetch('http://localhost:2222/p1_reliable_bank/dodeny', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) => {
+	    	let output = `<center><h5><span style='color: blue;'>The Pending Amount is Successfully Removed</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+	
 	return false;
 }
-//*******************************************************************************************//
-//*******************************************************************************************//
-//*******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
 function applyNewCard() {
     let output = '<h2>Applying New Card</h2>' + 
     `
-		<form action="applycard" method="POST">
-			<div>Enter your 9-digit customized card number </div>
-	        <input name="cardNumber" type="text" size="20">
-	        
-	        <div>Select card type </div>
-	        <select>
-	        	<option name="cc" value="Credit Card">Credit Card</option>
-	        	<option name="db" value="Debit Card">Debit Card</option>
-	        </select>
-	        
-	        <div>Enter a valid starting balance </div>
-	        <input name="amount" type="text">
-	        
-	        <br>
-	        <button class="btn btn-sm" type="submit">Apply</button>
-	    </form>
+		<div>Enter your 9-digit customized card number </div>
+        <input id="cardNumber" name="cardNumber" type="text" size="20">
+        
+        <div>Select card type </div>
+        <select onchange="return select();" id="selection">
+        	<option value="Credit Card">Credit Card</option>
+        	<option value="Debit Card">Debit Card</option>
+        </select>
+        
+        <div>Enter a valid starting balance </div>
+        <input id="amount" name="amount" type="text">
+        
+        <br>
+        <button onclick="return doApplyCard();" class="btn btn-sm" type="submit">Apply</button>
     `;
 
     document.getElementById('custRespond').innerHTML = output;
     document.getElementById('message').innerHTML = " ";
 }
-//*******************************************************************************************//
-//*******************************************************************************************//
-//*******************************************************************************************//
+
+function doApplyCard() {
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		
+		
+		let data = {pd_cardNumber: document.getElementById('cardNumber').value,
+				pd_cardType: document.getElementById('selection').value,
+				pd_balance : document.getElementById('amount').value};
+		fetch('http://localhost:2222/p1_reliable_bank/applycard', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) => {
+	    	let output = `<center><h5><span style='color: blue;'>Account Created. Please wait for approval!</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+
+	return false;
+}
+// *******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
 function deposit() {
 	fetch('http://localhost:2222/p1_reliable_bank/mybank')
     .then((res) => res.json())
@@ -187,33 +239,40 @@ function deposit() {
 }
 
 function doDeposit() {
-	let data = {cardNumber: document.getElementById('cardNumber').value, 
-			balance : document.getElementById('amount').value};
-	fetch('http://localhost:2222/p1_reliable_bank/deposit', {
-        method: 'POST',
-        redirect: 'follow',
-        headers: {
-//            'Accept': 'application/json, text/plain, */*',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then ((res) => {
-    	if(res.redirected) {
-    		window.location.href = res.url;
-    		alert('Invalid input. Please try again!');
-    	}
-    	return res.json();
-    })
-    .then((c) =>{
-    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
-    	document.getElementById('message').innerHTML = output;
-    })
-    return false;
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		let data = {cardNumber: document.getElementById('cardNumber').value, 
+				balance : document.getElementById('amount').value};
+		fetch('http://localhost:2222/p1_reliable_bank/deposit', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) =>{
+	    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+
+	return false;
 }
-//*******************************************************************************************//
-//*******************************************************************************************//
-//*******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
 function withdraw() {
 	fetch('http://localhost:2222/p1_reliable_bank/mybank')
     .then((res) => res.json())
@@ -256,33 +315,40 @@ function withdraw() {
 }
 
 function doWithdraw() {
-	let data = {cardNumber: document.getElementById('cardNumber').value, 
-			balance : document.getElementById('amount').value};
-	fetch('http://localhost:2222/p1_reliable_bank/withdraw', {
-        method: 'POST',
-        redirect: 'follow',
-        headers: {
-//            'Accept': 'application/json, text/plain, */*',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then ((res) => {
-    	if(res.redirected) {
-    		window.location.href = res.url;
-    		alert('Invalid input. Please try again!');
-    	}
-    	return res.json();
-    })
-    .then((c) =>{
-    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
-    	document.getElementById('message').innerHTML = output;
-    })
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		let data = {cardNumber: document.getElementById('cardNumber').value, 
+				balance : document.getElementById('amount').value};
+		fetch('http://localhost:2222/p1_reliable_bank/withdraw', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) =>{
+	    	let output = `<center><h5><span style='color: blue;'>The card ${c.cardNumber} now has a balance of \$${c.balance}</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+	
 	return false;
 }
-//*******************************************************************************************//
-//*******************************************************************************************//
-//*******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
+// *******************************************************************************************//
 function transfer() {
 	fetch('http://localhost:2222/p1_reliable_bank/mybank')
     .then((res) => res.json())
@@ -328,43 +394,35 @@ function transfer() {
 }
 
 function doTransfer() {
-	let data = {sender: document.getElementById('cardNumber1').value, 
-			amount : document.getElementById('amount').value,
-			receiver : document.getElementById('cardNumber2').value};
-	fetch('http://localhost:2222/p1_reliable_bank/transfer', {
-        method: 'POST',
-        redirect: 'follow',
-        headers: {
-//            'Accept': 'application/json, text/plain, */*',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then ((res) => {
-    	if(res.redirected) {
-    		window.location.href = res.url;
-    		alert('Invalid input. Please try again!');
-    	}
-    	return res.json();
-    })
-    .then((c) =>{
-    	let output = `<center><h5><span style='color: blue;'>Transferred Successfully</span></h4></center>`;
-    	document.getElementById('message').innerHTML = output;
-    })
+	if (document.getElementById('amount').value < 0) {
+		let output = `<center><h5><span style='color: red;'>${document.getElementById('amount').value} is not a valid amount</span></h4></center>`;
+		document.getElementById('message').innerHTML = output;
+	}
+	else {
+		let data = {sender: document.getElementById('cardNumber1').value, 
+				amount : document.getElementById('amount').value,
+				receiver : document.getElementById('cardNumber2').value};
+		fetch('http://localhost:2222/p1_reliable_bank/transfer', {
+	        method: 'POST',
+	        redirect: 'follow',
+	        headers: {
+// 'Accept': 'application/json, text/plain, */*',
+	            'Content-type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    })
+	    .then ((res) => {
+	    	if(res.redirected) {
+	    		window.location.href = res.url;
+	    		alert('Invalid input. Please try again!');
+	    	}
+	    	return res.json();
+	    })
+	    .then((c) =>{
+	    	let output = `<center><h5><span style='color: blue;'>Transferred Successfully</span></h4></center>`;
+	    	document.getElementById('message').innerHTML = output;
+	    })
+	}
+	
 	return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
